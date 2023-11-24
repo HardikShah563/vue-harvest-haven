@@ -41,11 +41,6 @@ function logoutHandler() {
             </RouterLink>
 
             <!-- <div> -->
-            <RouterLink class="nav-btn" to="/profile">
-                <div class="svg"><UserIcon /></div>
-                <p class="nav-action-label">Profile</p>
-            </RouterLink>
-
             <div class="nav-btn" onclick="logoutHandler()">
                 <div class="svg"><ArrowRightOnRectangleIcon /></div>
                 <p class="nav-action-label">Logout</p>
