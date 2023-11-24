@@ -1,4 +1,5 @@
 <script>
+// importing stylesheets
 import "../assets/footer.css";
 </script>
 
