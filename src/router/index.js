@@ -4,6 +4,8 @@ import Home from "../views/Home.vue";
 import Shop from "../views/Shop.vue";
 import Cart from "../views/Cart.vue";
 import Checkout from "../views/Checkout.vue";
+import SignIn from "../views/SignIn.vue";
+import SignUp from "../views/SignUp.vue";
 // importing components
 import Navbar from "../components/Navbar.vue";
 
@@ -31,6 +33,14 @@ const router = createRouter({
                     path: "/checkout",
                     name: "checkout",
                     component: Checkout
+                }, {
+                    path: "/signin",
+                    name: "signin",
+                    component: SignIn
+                }, {
+                    path: "/signup",
+                    name: "signup",
+                    component: SignUp
                 }
             ]
         },
