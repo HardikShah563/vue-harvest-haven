@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from "../views/Home.vue";
 import Shop from "../views/Shop.vue";
 import Cart from "../views/Cart.vue";
+import Checkout from "../views/Checkout.vue";
 // importing components
 import Navbar from "../components/Navbar.vue";
 
@@ -29,6 +30,7 @@ const router = createRouter({
                 }, {
                     path: "/checkout",
                     name: "checkout",
+                    component: Checkout
                 }
             ]
         },

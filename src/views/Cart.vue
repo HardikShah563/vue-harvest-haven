@@ -21,7 +21,7 @@ import { RouterLink } from "vue-router";
             <Product prodName="Potatos" prodImage="tomatos.png" prodQty="1kg" prodPrice=29 prodStockQty=50 />
         </div>
 
-        <RouterLink to="/cart">
+        <RouterLink to="/checkout">
             <div class="black-btn">
                 CHECKOUT
             </div>
