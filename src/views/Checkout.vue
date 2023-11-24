@@ -1,6 +1,8 @@
 <script setup>
+// importing stylesheets
 import "../assets/checkout.css";
 import "../assets/form.css";
+// importing components
 import Product from "../components/Product.vue";
 import Footer from "../components/Footer.vue";
 </script>
@@ -160,12 +162,14 @@ import Footer from "../components/Footer.vue";
             </div>
         </div>
     </div>
+    <Footer />
 </template>
 
 <script>
 export default {
     components: {
-        Product
+        Product,
+        Footer,
     },
     data() {
         return {

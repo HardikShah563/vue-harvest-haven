@@ -1,7 +1,11 @@
 <script setup>
-import "../assets/shop.css";
-import Product from "../components/Product.vue";
+// importing from vue
 import { RouterLink } from "vue-router";
+// importing stylesheets
+import "../assets/shop.css";
+// importing components
+import Product from "../components/Product.vue";
+import Footer from "../components/Footer.vue";
 </script>
 
 <template>
@@ -27,12 +31,14 @@ import { RouterLink } from "vue-router";
             </div>
         </RouterLink>
     </div>
+    <Footer />
 </template>
 
 <script>
 export default {
     components: {
-        Product
+        Product,
+        Footer,
     },
     data() {
         return {

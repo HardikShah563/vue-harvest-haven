@@ -1,13 +1,16 @@
-<script>
+<script setup>
+// importing from vue
+import { RouterLink } from "vue-router";
 // importing stylesheets
 import "../assets/footer.css";
+const year = new Date().getFullYear();
 </script>
 
 <template>
     <footer className="footer" id="footer">
     <div className="footer-sections">
         <div className="foot-section">
-                <img src="../assets/images/store-name.png" alt="store name">
+                <img class="footer-logo" src="../assets/images/store-name.png" alt="store name">
                 <h1 className="txt-ctr">HARVEST <br /> HAVEN</h1>
             </div>
 
@@ -32,7 +35,7 @@ import "../assets/footer.css";
                     Store
                 </li>
 
-                <div>View Shop</div>
+                <RouterLink to="/shop">View Shop</RouterLink>
             </div>
 
             <div className="foot-section">
@@ -48,8 +51,9 @@ import "../assets/footer.css";
         </div>
         <hr />
         <div className="below-footer-as">
+            <br />
             <div className="txt-ctr">
-                @{new Date().getFullYear()}&nbsp;Harvest Haven | All Rights Reserved
+                @{{ year }}&nbsp;Harvest Haven | All Rights Reserved
             </div>
         </div>
     </footer>

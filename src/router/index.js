@@ -8,6 +8,7 @@ import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
 // importing components
 import Navbar from "../components/Navbar.vue";
+import Footer from "../components/Footer.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),

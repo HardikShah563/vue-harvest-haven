@@ -1,6 +1,15 @@
 <script>
+// importing stylesheets
 import "../assets/home.css";
 import "../assets/form.css";
+// importing components
+import Footer from "../components/Footer.vue";
+
+export default {
+    components: {
+        Footer
+    }
+}
 </script>
 
 <template>
@@ -57,4 +66,5 @@ import "../assets/form.css";
             </form>
         </div>
     </div>
+    <Footer />
 </template>
