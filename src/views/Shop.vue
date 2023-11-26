@@ -22,7 +22,6 @@ import Footer from "../components/Footer.vue";
                     :prodStockQty= "item.prodStockQty"
                 ></Product>
             </div>
-            <Product prodName="Potatos" prodImage="tomatos.png" prodQty="1kg" prodPrice=29 prodStockQty=50 />
         </div>
 
         <RouterLink to="/cart">

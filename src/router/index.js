@@ -6,9 +6,13 @@ import Cart from "../views/Cart.vue";
 import Checkout from "../views/Checkout.vue";
 import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
+import AdminDashboard from "../views/AdminDashboard.vue";
+import EditCat from "../views/EditCat.vue";
+import DelCat from "../views/DelCat.vue";
+import EditItem from "../views/EditItem.vue";
+import DelItem from "../views/DelItem.vue";
 // importing components
 import Navbar from "../components/Navbar.vue";
-import Footer from "../components/Footer.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,17 +39,48 @@ const router = createRouter({
                     name: "checkout",
                     component: Checkout
                 }, {
-                    path: "/signin",
-                    name: "signin",
-                    component: SignIn
+                    path: "/admin-dashboard",
+                    name: "admin-dashboard",
+                    component: AdminDashboard,
+                    children: [
+                        {
+                            path: "/edit-item",
+                            name: "edit-item",
+                            // component: SignUp
+                        }, {
+                            path: "/del-item",
+                            name: "delete-item",
+                            // component: SignUp
+                        }
+                    ]
                 }, {
-                    path: "/signup",
-                    name: "signup",
-                    component: SignUp
-                }
+                    path: "/admin-dashboard/edit-cat",
+                    name: "EditCat",
+                    component: EditCat
+                }, {
+                    path: "/admin-dashboard/del-cat",
+                    name: "DelCat",
+                    component: DelCat
+                }, {
+                    path: "/admin-dashboard/edit-item",
+                    name: "EditItem",
+                    component: EditItem
+                }, {
+                    path: "/admin-dashboard/del-item",
+                    name: "DelItem",
+                    component: DelItem
+                },
             ]
+        }, {
+            path: "/signin",
+            name: "signin",
+            component: SignIn
+        }, {
+            path: "/signup",
+            name: "signup",
+            component: SignUp
         },
     ]
-})
+});
 
 export default router

@@ -192,23 +192,24 @@
     justify-content: space-between;
     align-items: center;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 20px;
     margin-block: 5px;
 }
 
 .item-name {
-    width: 100%;
+    min-width: 100%;
 }
 
 .item-amt {
     color: var(--secondary-dark);
     font-weight: 400;
     margin-right: 10px;
-    font-size: 16px;
 }
 
 .item-btn {
-    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    padding: 5px 15px;
     margin: 0px 5px;
     border-radius: 8px;
     cursor: pointer;

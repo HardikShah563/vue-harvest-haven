@@ -20,7 +20,7 @@ function logoutHandler() {
         </div>
 
         <div class="nav-actions">
-            <RouterLink class="nav-btn" to="/admin">
+            <RouterLink class="nav-btn" to="/admin-dashboard">
                 <div class="svg"><WrenchScrewdriverIcon /></div>
                 <p class="nav-action-label">Admin</p>
             </RouterLink>
