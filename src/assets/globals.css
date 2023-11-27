@@ -56,9 +56,17 @@ html {
     font-family: sans-serif;
 }
 
+.white {
+    color: var(--background);
+}
+
 /* common properties */
 .page {
     padding-block: 100px;
+}
+
+.small-page {
+    padding-block: 50px;
 }
 
 .flex {
@@ -71,6 +79,10 @@ html {
 
 .w-100 {
     width: 100%;
+}
+
+.uppercase {
+    text-transform: uppercase;
 }
 
 .title {

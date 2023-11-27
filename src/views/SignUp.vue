@@ -33,6 +33,7 @@ export default {
                     .then((data) => {
                         this.msg = data.message;
                         if(data.message) {
+                            localStorage.setItem("userInfo", JSON.stringify(this.formData))
                             this.msgColor = "green";
                             delay(500);
                             this.msg = "redirecting... wait";
