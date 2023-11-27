@@ -1,6 +1,7 @@
 <script setup>
 import "../assets/form.css";
 import { RouterLink } from "vue-router";
+import { delay } from "../config/utils";
 </script>
 
 <script>
@@ -27,10 +28,19 @@ export default {
                     body: JSON.stringify(this.formData),
                 })
                     .then((response) => response.json())
-                    .then((data) => {
-                        this.msg = data.message;
-                        this.msgColor = "green";
-                        window.location.href = "/";
+                    .then(async (data) => {
+                        if (data.message) {
+                            localStorage.setItem("userInfo", JSON.stringify(this.formData))
+                            this.msg = data.message;
+                            this.msgColor = "green";
+                            await delay(500);
+                            this.msg = "redirecting... wait";
+                            await delay(1000);
+                            window.location.href = "/";
+                        } else {
+                            this.msg = data.error;
+                            this.msgColor = "red";
+                        }
                     });
             } catch (err) {
                 console.log(err.message);

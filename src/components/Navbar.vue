@@ -4,11 +4,42 @@ import { RouterLink, RouterView } from "vue-router";
 // importing stylesheets
 import "../assets/navbar.css";
 // importing icons
-import { WrenchScrewdriverIcon, ShoppingBagIcon, ShoppingCartIcon, UserIcon, ArrowRightOnRectangleIcon, ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/outline';
+import {
+    WrenchScrewdriverIcon,
+    ShoppingBagIcon,
+    ShoppingCartIcon,
+    UserIcon,
+    ArrowRightOnRectangleIcon,
+    ArrowLeftOnRectangleIcon,
+} from "@heroicons/vue/24/outline";
+</script>
 
-function logoutHandler() {
-    console.log("Log Out!");
-}
+<script>
+export default {
+    data() {
+        return {
+            userInfo: localStorage.getItem("userInfo")
+                ? JSON.parse(localStorage.getItem("userInfo"))
+                : null,
+        };
+    },
+    methods: {
+        async logoutHandler() {
+            try {
+                await fetch("http://127.0.0.1:5000/signout")
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if(data.message) {
+                            localStorage.removeItem("userInfo");
+                            window.location.reload();
+                        }
+                    });
+            } catch (err) {
+                console.log(err.message);
+            }
+        },
+    },
+};
 </script>
 
 <template>
@@ -20,7 +51,11 @@ function logoutHandler() {
         </div>
 
         <div class="nav-actions">
-            <RouterLink class="nav-btn" to="/admin-dashboard">
+            <RouterLink
+                v-if="userInfo && userInfo.isAdmin"
+                class="nav-btn"
+                to="/admin-dashboard"
+            >
                 <div class="svg"><WrenchScrewdriverIcon /></div>
                 <p class="nav-action-label">Admin</p>
             </RouterLink>
@@ -30,24 +65,22 @@ function logoutHandler() {
                 <p class="nav-action-label">Shop</p>
             </RouterLink>
 
-            <RouterLink class="nav-btn" to="/cart">
+            <RouterLink v-if="userInfo" class="nav-btn" to="/cart">
                 <div class="svg"><ShoppingCartIcon /></div>
                 <p class="nav-action-label">Cart</p>
                 <!-- {cart.cartItems.length > 0 && ( -->
-                <span class="cart-count" id="red">
-                    0
-                </span>
+                <span class="cart-count" id="red"> 0 </span>
                 <!-- )} -->
             </RouterLink>
 
             <!-- <div> -->
-            <div class="nav-btn" onclick="logoutHandler()">
+            <div v-if="userInfo" class="nav-btn" @click="logoutHandler()">
                 <div class="svg"><ArrowRightOnRectangleIcon /></div>
                 <p class="nav-action-label">Logout</p>
             </div>
             <!-- </div> -->
 
-            <RouterLink class="nav-btn" to="/signin">
+            <RouterLink v-if="!userInfo" class="nav-btn" to="/signin">
                 <div class="svg"><ArrowLeftOnRectangleIcon /></div>
                 <p class="nav-action-label">Signin</p>
             </RouterLink>
