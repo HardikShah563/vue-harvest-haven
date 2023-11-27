@@ -8,35 +8,118 @@ import "../assets/shop.css";
 import { TrashIcon, PencilIcon } from "@heroicons/vue/24/outline";
 </script>
 
+<script>
+export default {
+    data() {
+        return {
+            categories: [],
+            items: {},
+            categoryNames: ["Loose", "Dairy", "Packaged", "Pulses"],
+            shopItems: [
+                {
+                    prodName: "Potatos",
+                    prodImage: "tomatos.png",
+                    prodQty: "1kg",
+                    prodPrice: 29,
+                    prodStockQty: 50,
+                },
+                {
+                    prodName: "Potatos",
+                    prodImage: "tomatos.png",
+                    prodQty: "1kg",
+                    prodPrice: 29,
+                    prodStockQty: 50,
+                },
+                {
+                    prodName: "Potatos",
+                    prodImage: "tomatos.png",
+                    prodQty: "1kg",
+                    prodPrice: 29,
+                    prodStockQty: 50,
+                },
+                {
+                    prodName: "Potatos",
+                    prodImage: "tomatos.png",
+                    prodQty: "1kg",
+                    prodPrice: 29,
+                    prodStockQty: 50,
+                },
+            ],
+        };
+    },
+    methods: {
+        async getData() {
+            console.log("First time render");
+            try {
+                const response = await fetch("http://127.0.0.1:5000/shop");
+                const data = await response.json();
+                this.categories = data.categories;
+                this.items = data.items;
+            } catch (err) {
+                console.log(err.message);
+            }
+        },
+    },
+    created() {
+        this.getData();
+    },
+};
+</script>
+
 <template>
     <div className="admin-page page">
         <h1 className="title txt-ctr">Welcome Store Manager</h1>
 
         <div className="store">
-            <div class="store-item category" v-for="(item, index) in categoryNames" :key="index">
-                <h1 className="store-item-title txt-ctr">{{ item }} PRODUCTS</h1>
+            <div
+                class="store-item category"
+                v-for="(itemType, items) in items"
+                :key="itemType"
+            >
+                <h1 className="store-item-title txt-ctr">
+                    {{ items }} PRODUCTS
+                </h1>
                 <div className="edit-category flex gap-5">
-                    <RouterLink to="/admin-dashboard/edit-cat" className="item add item-btn gap-5 w-100" id="edit">
+                    <RouterLink
+                        to="/admin-dashboard/edit-cat"
+                        className="item add item-btn gap-5 w-100"
+                        id="edit"
+                    >
                         <PencilIcon class="admin-icon" />
                     </RouterLink>
-                    <RouterLink to="/admin-dashboard/del-cat" className="item add item-btn gap-5 w-100" id="delete">
+                    <RouterLink
+                        to="/admin-dashboard/del-cat"
+                        className="item add item-btn gap-5 w-100"
+                        id="delete"
+                    >
                         <TrashIcon class="admin-icon" />
                     </RouterLink>
                 </div>
 
-                <div class="item" v-for="(item, index) in shopItems" :key="index">
+                <div
+                    class="item"
+                    v-for="(prod, index) in itemType"
+                    :key="index"
+                >
                     <div className="item">
                         <div className="item-name">
-                            {{ item.prodName }}
+                            {{ prod[1] }}
                         </div>
-                        <div className="item-amt">
-                            ₹{{ item.prodPrice }}
-                        </div>
-                        <div className="flex">
-                            <RouterLink to="/admin-dashboard/edit-item" className="item-btn" id="edit">
+                        <div className="flex item-2">
+                            <div className="item-amt">₹{{ prod[3] }}</div>
+
+                            <RouterLink
+                                to="/admin-dashboard/edit-item"
+                                className="item-btn"
+                                id="edit"
+                            >
                                 <PencilIcon class="admin-small-icon" />
                             </RouterLink>
-                            <RouterLink to="/admin-dashboard/del-item" className="item-btn item-btn-2" id="delete">
+                            <RouterLink
+                                to="/admin-dashboard/del-item"
+                                className="item-btn item-btn-2"
+                                id="delete"
+                            >
                                 <TrashIcon class="admin-small-icon" />
                             </RouterLink>
                         </div>
@@ -46,40 +129,3 @@ import { TrashIcon, PencilIcon } from "@heroicons/vue/24/outline";
         </div>
     </div>
 </template>
-
-<script>
-export default {
-    data() {
-        return {
-            categoryNames: ["Loose", "Dairy", "Packaged", "Pulses"],
-            shopItems: [
-                {
-                    prodName: "Potatos",
-                    prodImage: "tomatos.png",
-                    prodQty: "1kg",
-                    prodPrice: 29,
-                    prodStockQty: 50,
-                }, {
-                    prodName: "Potatos",
-                    prodImage: "tomatos.png",
-                    prodQty: "1kg",
-                    prodPrice: 29,
-                    prodStockQty: 50,
-                }, {
-                    prodName: "Potatos",
-                    prodImage: "tomatos.png",
-                    prodQty: "1kg",
-                    prodPrice: 29,
-                    prodStockQty: 50,
-                }, {
-                    prodName: "Potatos",
-                    prodImage: "tomatos.png",
-                    prodQty: "1kg",
-                    prodPrice: 29,
-                    prodStockQty: 50,
-                }
-            ],
-        }
-    }
-}
-</script>

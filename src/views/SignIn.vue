@@ -34,6 +34,7 @@ export default {
                     .then(async (data) => {
                         if (data.message) {
                             localStorage.setItem("userInfo", JSON.stringify(this.formData))
+                            localStorage.setItem("isAdmin", JSON.stringify(data.isAdmin))
                             this.msg = data.message;
                             this.msgColor = "green";
                             await delay(500);

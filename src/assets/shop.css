@@ -198,10 +198,11 @@
     font-weight: 600;
     font-size: 20px;
     margin-block: 5px;
+    width: 100%;
 }
 
-.item-name {
-    min-width: 100%;
+.item-2 {
+    align-items: center;
 }
 
 .item-amt {

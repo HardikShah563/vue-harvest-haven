@@ -21,6 +21,9 @@ export default {
             userInfo: localStorage.getItem("userInfo")
                 ? JSON.parse(localStorage.getItem("userInfo"))
                 : null,
+            isAdmin: localStorage.getItem("isAdmin")
+                ? JSON.parse(localStorage.getItem("isAdmin"))
+                : null,
         };
     },
     methods: {
@@ -29,8 +32,9 @@ export default {
                 await fetch("http://127.0.0.1:5000/signout")
                     .then((response) => response.json())
                     .then((data) => {
-                        if(data.message) {
+                        if (data.message) {
                             localStorage.removeItem("userInfo");
+                            localStorage.removeItem("isAdmin");
                             window.location.reload();
                         }
                     });
@@ -52,7 +56,7 @@ export default {
 
         <div class="nav-actions">
             <RouterLink
-                v-if="userInfo && userInfo.isAdmin"
+                v-if="isAdmin"
                 class="nav-btn"
                 to="/admin-dashboard"
             >
