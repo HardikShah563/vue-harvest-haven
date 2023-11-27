@@ -1,6 +1,9 @@
 <script setup>
-import "../assets/form.css";
+// importing from vue
 import { RouterLink } from "vue-router";
+// importing stylesheets
+import "../assets/form.css";
+// importing from config
 import { delay } from "../config/utils";
 </script>
 

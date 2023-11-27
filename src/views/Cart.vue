@@ -12,7 +12,6 @@ import Footer from "../components/Footer.vue";
 export default {
     data() {
         return {
-            categories: [],
             cart: {},
         };
     },
@@ -53,7 +52,6 @@ export default {
                     :prodPrice="prod[3]"
                     :prodStockQty="prod[7]"
                     :count="prod[8]"
-                    :screen="cart"
                 ></Product>
             </div>
         </div>

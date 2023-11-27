@@ -5,6 +5,91 @@ import "../assets/form.css";
 // importing components
 import Product from "../components/Product.vue";
 import Footer from "../components/Footer.vue";
+// importing from config
+import { delay } from "../config/utils";
+</script>
+
+<script>
+export default {
+    data() {
+        return {
+            msg: "",
+            msgColor: "",
+            cart: {},
+            screenName: "checkout",
+            subtotal: 0,
+            tax_rate: 0.09,
+            formData: {
+                name: "",
+                email: "",
+                address: "",
+                city: "",
+                state: "",
+                zip: "",
+                card_name: "",
+                card_no: "",
+                card_exp: "",
+                cvv: "",
+            },
+        };
+    },
+    methods: {
+        async getData() {
+            console.log("First time render");
+            try {
+                const response = await fetch("http://127.0.0.1:5000/cart");
+                const data = await response.json();
+                this.cart = data.cart;
+                this.calcTotal();
+            } catch (err) {
+                console.log(err.message);
+            }
+        },
+
+        async calcTotal() {
+            this.cart.map((el) => {
+                console.log(el);
+                this.subtotal = this.subtotal + el[8] * el[3];
+            });
+        },
+
+        async checkout() {
+            try {
+                await fetch("http://127.0.0.1:5000/checkout", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(this.formData),
+                })
+                    .then((response) => response.json())
+                    .then(async (data) => {
+                        if (data.message) {
+                            this.msg = data.message;
+                            this.msgColor = "green";
+                            window.scrollTo(0, 0);
+                            await delay(2000);
+                            this.msg = "redirecting... wait";
+                            await delay(1000);
+                            window.location.href = "/";
+                        } else {
+                            this.msg = data.error;
+                            this.msgColor = "red";
+                        }
+                    });
+            } catch (err) {
+                console.log(err.message);
+            }
+        },
+    },
+    created() {
+        this.getData();
+    },
+    components: {
+        Product,
+        Footer,
+    },
+};
 </script>
 
 <template>
@@ -12,50 +97,72 @@ import Footer from "../components/Footer.vue";
         <div className="checkout-form">
             <div className="form">
                 <h1 className="title">Checkout With Your Purchase</h1>
-                <h1 className="subtitle">** Enter authentic details to complete the purchase **</h1>
-                <form>
+                <h1 className="subtitle">
+                    ** Enter authentic details to complete the purchase **
+                </h1>
+                <form @submit.prevent="checkout()">
                     <div className="input-box">
-                        <div className="input msg" id={color}>
-                            <!-- {msg} -->
+                        <div className="input msg" :id="msgColor">
+                            {{msg}}
                         </div>
                     </div>
 
                     <h1 className="title">Billing Details:</h1>
 
                     <div className="input-box">
-                        <label for="fullname">
-                            <i className="fa fa-user"></i> Full Name:
-                        </label>
+                        <label for="fullname"> Full Name: </label>
 
-                        <input className="input" type="text" name="name" id="name" value={formData.name}
-                            placeholder="Eg: John Doe" autocomplete="off" required />
+                        <input
+                            className="input"
+                            type="text"
+                            name="name"
+                            id="name"
+                            v-model="formData.name"
+                            placeholder="Eg: John Doe"
+                            required
+                        />
                     </div>
 
                     <div className="input-box">
-                        <label for="email">
-                            <i className="fa fa-envelope"></i> Email:
-                        </label>
+                        <label for="email"> Email: </label>
 
-                        <input className="input" type="email" name="email" id="email" value={formData.email}
-                            placeholder="Eg: johndoe@gmail.com" autocomplete="off" required />
+                        <input
+                            className="input"
+                            type="email"
+                            name="email"
+                            id="email"
+                            v-model="formData.email"
+                            placeholder="Eg: johndoe@gmail.com"
+                            required
+                        />
                     </div>
 
                     <div className="input-box">
-                        <label for="name">
-                            <i className="fa fa-address-card-o"></i> Address:
-                        </label>
+                        <label for="name"> Address: </label>
 
-                        <input className="input" type="text" name="address" id="address" value={formData.address}
-                            placeholder="Eg: 101/C, Bldg Name" autocomplete="off" required />
+                        <input
+                            className="input"
+                            type="text"
+                            name="address"
+                            id="address"
+                            v-model="formData.address"
+                            placeholder="Eg: 101/C, Bldg Name"
+                            required
+                        />
                     </div>
 
                     <div className="input-box">
-                        <label for="city">
-                            <i className="fa fa-institution"></i> City:
-                        </label>
+                        <label for="city"> City: </label>
 
-                        <input className="input" type="text" name="city" id="city" value={formData.city}
-                            placeholder="Eg: Dublin" autocomplete="off" required />
+                        <input
+                            className="input"
+                            type="text"
+                            name="city"
+                            id="city"
+                            v-model="formData.city"
+                            placeholder="Eg: Mumbai"
+                            required
+                        />
                     </div>
 
                     <div className="input-box">
@@ -63,62 +170,89 @@ import Footer from "../components/Footer.vue";
                             <i className="fa-solid fa-mountain-city"></i> State:
                         </label>
 
-                        <input className="input" type="text" name="state" id="state" value={formData.state}
-                            placeholder="Eg: Dublin" autocomplete="off" required />
+                        <input
+                            className="input"
+                            type="text"
+                            name="state"
+                            id="state"
+                            v-model="formData.state"
+                            placeholder="Eg: Maharasthra"
+                            required
+                        />
                     </div>
 
                     <div className="input-box">
                         <label for="zip">
-                            <i className="fa-solid fa-location-crosshairs"></i> Zip:
+                            <i className="fa-solid fa-location-crosshairs"></i>
+                            Zip:
                         </label>
 
-                        <input className="input" type="number" name="zip" id="zip" value={formData.zip}
-                            placeholder="Eg: 000000" autocomplete="off" required />
+                        <input
+                            className="input"
+                            type="number"
+                            name="zip"
+                            id="zip"
+                            v-model="formData.zip"
+                            placeholder="Eg: 000000"
+                            required
+                        />
                     </div>
 
                     <h1 className="title">Payment Details:</h1>
-                    <h1 className="subtitle">Accepted Cards</h1>
-                    <h1 className="flex gap-5 title">
-                        <i className="fa fa-cc-visa" id="navy-card"></i>
-                        <i className="fa fa-cc-amex" id="blue-card"></i>
-                        <i className="fa fa-cc-mastercard" id="red-card"></i>
-                        <i className="fa fa-cc-discover" id="orange-card"></i>
-                    </h1>
 
                     <div className="input-box">
-                        <label for="city">
-                            <i className="fa-solid fa-signature"></i> Name on the card:
-                        </label>
+                        <label for="city"> Name on the card: </label>
 
-                        <input className="input" type="text" name="card_name" id="card_name" value={formData.card_name}
-                            placeholder="Eg: John Doe" autocomplete="off" required />
+                        <input
+                            className="input"
+                            type="text"
+                            name="card_name"
+                            id="card_name"
+                            v-model="formData.card_name"
+                            placeholder="Eg: John Doe"
+                            required
+                        />
                     </div>
 
                     <div className="input-box">
-                        <label for="card-no">
-                            <i className="fa-solid fa-list-ol"></i> Card Number:
-                        </label>
+                        <label for="card-no"> Card Number: </label>
 
-                        <input className="input" type="text" name="card_no" id="card_no" value={formData.card_no}
-                            placeholder="Eg: 1234-5678-1011-1213" autocomplete="off" required />
+                        <input
+                            className="input"
+                            type="text"
+                            name="card_no"
+                            id="card_no"
+                            v-model="formData.card_no"
+                            placeholder="Eg: 1234-5678-1011-1213"
+                            required
+                        />
                     </div>
 
                     <div className="input-box">
-                        <label for="card-exp">
-                            <i className="fa-solid fa-calendar-days"></i> Expiry Date:
-                        </label>
+                        <label for="card-exp"> Expiry Date: </label>
 
-                        <input className="input" type="month" name="card_exp" id="card_exp" value={formData.card_exp}
-                            autocomplete="off" required />
+                        <input
+                            className="input"
+                            type="month"
+                            name="card_exp"
+                            id="card_exp"
+                            v-model="formData.card_exp"
+                            required
+                        />
                     </div>
 
                     <div className="input-box">
-                        <label for="card-cvv">
-                            <i className="fa-solid fa-key"></i> CVV:
-                        </label>
+                        <label for="card-cvv"> CVV: </label>
 
-                        <input className="input" type="password" name="cvv" id="cvv" value={formData.cvv} autocomplete="off"
-                            placeholder="Eg: ***" required />
+                        <input
+                            className="input"
+                            type="password"
+                            name="cvv"
+                            id="cvv"
+                            v-model="formData.cvv"
+                            placeholder="Eg: ***"
+                            required
+                        />
                     </div>
 
                     <div className="input-box">
@@ -132,63 +266,48 @@ import Footer from "../components/Footer.vue";
 
         <div className="checkout-store">
             <h1 className="title">Cart Items</h1>
-            <div class="store" id="cart-items">
-                <div v-for="(item, index) in shopItems" :key="index">
-                    <Product :prodName="item.prodName" :prodImage="item.prodImage" :prodQty="item.prodQty"
-                        :prodPrice="item.prodPrice" :prodStockQty="item.prodStockQty"></Product>
+            <div class="store">
+                <div v-for="prod in cart" :key="prod[0]">
+                    <Product
+                        :prodId="prod[0]"
+                        :prodName="prod[1]"
+                        :prodImage="prod[5]"
+                        :prodQty="prod[2]"
+                        :prodPrice="prod[3]"
+                        :prodStockQty="prod[7]"
+                        :count="prod[8]"
+                        :screenName="screenName"
+                    ></Product>
                 </div>
-                <Product prodName="Potatos" prodImage="tomatos.png" prodQty="1kg" prodPrice=29 prodStockQty=50 />
             </div>
 
             <br />
             <hr />
-            
+
             <div className="checkout-total flex">
-                <h1 className="subtitle">Subtotal&emsp;&nbsp;: </h1>
-                <h1 className="subtitle">{subtotal}</h1>
+                <h1 className="subtitle">Subtotal&emsp;&nbsp;:</h1>
+                <h1 className="subtitle">{{ this.subtotal }}</h1>
             </div>
             <div className="checkout-total flex">
-                <h1 className="subtitle">CGST (9%)&nbsp;&nbsp;&nbsp;: </h1>
-                <h1 className="subtitle">₹{tax}</h1>
+                <h1 className="subtitle">CGST (9%)&nbsp;&nbsp;&nbsp;:</h1>
+                <h1 className="subtitle">
+                    ₹{{ this.tax_rate * this.subtotal }}
+                </h1>
             </div>
             <div className="checkout-total flex">
-                <h1 className="subtitle">SGST (9%)&nbsp;&nbsp;&nbsp;: </h1>
-                <h1 className="subtitle">₹{tax}</h1>
+                <h1 className="subtitle">SGST (9%)&nbsp;&nbsp;&nbsp;:</h1>
+                <h1 className="subtitle">
+                    ₹{{ this.tax_rate * this.subtotal }}
+                </h1>
             </div>
             <hr />
             <div className="checkout-total flex">
-                <h1 className="title">Grand Total: </h1>
-                <h1 className="title">₹{subtotal + (tax * 2)}</h1>
+                <h1 className="title">Grand Total:</h1>
+                <h1 className="title">
+                    ₹{{ subtotal + this.tax_rate * this.subtotal * 2 }}
+                </h1>
             </div>
         </div>
     </div>
     <Footer />
 </template>
-
-<script>
-export default {
-    components: {
-        Product,
-        Footer,
-    },
-    data() {
-        return {
-            shopItems: [
-                {
-                    prodName: "Potatos",
-                    prodImage: "tomatos.png",
-                    prodQty: "1kg",
-                    prodPrice: 29,
-                    prodStockQty: 50,
-                }, {
-                    prodName: "Potatos",
-                    prodImage: "tomatos.png",
-                    prodQty: "1kg",
-                    prodPrice: 29,
-                    prodStockQty: 50,
-                }
-            ],
-        }
-    }
-}
-</script>

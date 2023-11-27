@@ -16,11 +16,12 @@ export default {
         prodQty: String,
         prodPrice: Number,
         prodStockQty: Number,
-        count: Number
+        count: Number,
+        screenName: String
     },
     data() {
         return {
-            count: this.count || 0,
+            prodCount: 0,
             prodStock: this.prodStockQty,
             img_url: "data:image/png;base64," + this.prodImage,
             operationData: {
@@ -31,7 +32,7 @@ export default {
     },
     methods: {
         async addToCart() {
-            this.count < this.prodStock && this.count++;
+            this.prodCount < this.prodStock && this.prodCount++;
             this.operationData.op = "plus";
             await fetch("http://127.0.0.1:5000/shop", {
                 method: "POST",
@@ -46,7 +47,7 @@ export default {
                 });
         },
         async removeFromCart() {
-            this.count > 0 && this.count--;
+            this.prodCount > 0 && this.prodCount--;
             this.operationData.op = "minus";
             await fetch("http://127.0.0.1:5000/shop", {
                 method: "POST",
@@ -60,6 +61,9 @@ export default {
                     console.log(data.message);
                 });
         },
+    },
+    created() {
+        this.prodCount = this.count || 0;
     },
 };
 </script>
@@ -90,13 +94,13 @@ export default {
         </div>
 
         <div class="quantity">
-            <button class="minus" @click="removeFromCart()">
+            <button v-if="!screenName" class="minus" @click="removeFromCart()">
                 <div>-</div>
             </button>
 
-            <div class="qty">{{ count }}</div>
+            <div class="qty">{{ prodCount }}</div>
 
-            <button class="plus" @click="addToCart()">
+            <button v-if="!screenName" class="plus" @click="addToCart()">
                 <div class="white">+</div>
             </button>
         </div>
