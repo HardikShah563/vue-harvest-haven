@@ -10,6 +10,7 @@ import AdminDashboard from "../views/AdminDashboard.vue";
 import EditCat from "../views/EditCat.vue";
 import DelCat from "../views/DelCat.vue";
 import EditItem from "../views/EditItem.vue";
+import AddCat from "../views/AddCat.vue";
 import DelItem from "../views/DelItem.vue";
 // importing components
 import Navbar from "../components/Navbar.vue";
@@ -42,17 +43,10 @@ const router = createRouter({
                     path: "/admin-dashboard",
                     name: "admin-dashboard",
                     component: AdminDashboard,
-                    children: [
-                        {
-                            path: "/edit-item",
-                            name: "edit-item",
-                            // component: SignUp
-                        }, {
-                            path: "/del-item",
-                            name: "delete-item",
-                            // component: SignUp
-                        }
-                    ]
+                }, {
+                    path: "/admin-dashboard/add-category",
+                    name: "AddCat",
+                    component: AddCat
                 }, {
                     path: "/admin-dashboard/edit-cat",
                     name: "EditCat",

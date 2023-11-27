@@ -127,5 +127,6 @@ export default {
                 </div>
             </div>
         </div>
+        <RouterLink to="/admin-dashboard/add-category" class="plus-icon">+</RouterLink>
     </div>
 </template>
