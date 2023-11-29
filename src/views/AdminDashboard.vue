@@ -6,6 +6,8 @@ import "../assets/admin.css";
 import "../assets/shop.css";
 // importing icons
 import { TrashIcon, PencilIcon } from "@heroicons/vue/24/outline";
+// importing components
+import Footer from "../components/Footer.vue";
 </script>
 
 <script>
@@ -14,37 +16,6 @@ export default {
         return {
             categories: [],
             items: {},
-            categoryNames: ["Loose", "Dairy", "Packaged", "Pulses"],
-            shopItems: [
-                {
-                    prodName: "Potatos",
-                    prodImage: "tomatos.png",
-                    prodQty: "1kg",
-                    prodPrice: 29,
-                    prodStockQty: 50,
-                },
-                {
-                    prodName: "Potatos",
-                    prodImage: "tomatos.png",
-                    prodQty: "1kg",
-                    prodPrice: 29,
-                    prodStockQty: 50,
-                },
-                {
-                    prodName: "Potatos",
-                    prodImage: "tomatos.png",
-                    prodQty: "1kg",
-                    prodPrice: 29,
-                    prodStockQty: 50,
-                },
-                {
-                    prodName: "Potatos",
-                    prodImage: "tomatos.png",
-                    prodQty: "1kg",
-                    prodPrice: 29,
-                    prodStockQty: 50,
-                },
-            ],
         };
     },
     methods: {
@@ -135,8 +106,11 @@ export default {
                 </RouterLink>
             </div>
         </div>
-        <RouterLink to="/admin-dashboard/add-category" class="plus-icon"
-            >+</RouterLink
-        >
+
+        <RouterLink to="/admin-dashboard/stats" class="black-btn">Admin Stats</RouterLink>
+        
+        <RouterLink to="/admin-dashboard/add-category" class="plus-icon">+</RouterLink>
     </div>
+
+    <Footer />
 </template>

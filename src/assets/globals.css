@@ -73,6 +73,14 @@ html {
     display: flex !important;
 }
 
+.space-btwn {
+    justify-content: space-between;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
 .gap-5 {
     gap: 5px;
 }

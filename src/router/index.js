@@ -7,6 +7,7 @@ import Checkout from "../views/Checkout.vue";
 import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
 import AdminDashboard from "../views/AdminDashboard.vue";
+import AdminStats from "../views/AdminStats.vue";
 import AddCat from "../views/AddCat.vue";
 import EditCat from "../views/EditCat.vue";
 import DelCat from "../views/DelCat.vue";
@@ -44,6 +45,10 @@ const router = createRouter({
                     path: "/admin-dashboard",
                     name: "admin-dashboard",
                     component: AdminDashboard,
+                }, {
+                    path: "/admin-dashboard/stats",
+                    name: "admin-stats",
+                    component: AdminStats,
                 }, {
                     path: "/admin-dashboard/add-category",
                     name: "AddCat",
