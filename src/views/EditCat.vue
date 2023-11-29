@@ -25,7 +25,9 @@ export default {
         async getData() {
             console.log("First time render");
             try {
-                const response = await fetch("http://127.0.0.1:5000/edit-category");
+                const response = await fetch(
+                    "http://127.0.0.1:5000/edit-category"
+                );
                 const data = await response.json();
                 this.categories = data.categories;
                 console.log(this.categories);
@@ -95,7 +97,13 @@ export default {
                         required
                     >
                         <option value="">-- None --</option>
-                        <option v-for="category in categories" :key="category[0]" :value="category[0]">{{ category[1] }}</option>
+                        <option
+                            v-for="category in categories"
+                            :key="category[0]"
+                            :value="category[0]"
+                        >
+                            {{ category[1] }}
+                        </option>
                     </select>
                 </div>
 
