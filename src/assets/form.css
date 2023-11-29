@@ -157,4 +157,8 @@
     .below-form {
         font-size: 12px;
     }
+
+    .admin-forms {
+        width: 100vw;
+    }
 }

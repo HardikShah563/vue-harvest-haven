@@ -7,10 +7,11 @@ import Checkout from "../views/Checkout.vue";
 import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
 import AdminDashboard from "../views/AdminDashboard.vue";
+import AddCat from "../views/AddCat.vue";
 import EditCat from "../views/EditCat.vue";
 import DelCat from "../views/DelCat.vue";
+import AddItem from "../views/AddItem.vue";
 import EditItem from "../views/EditItem.vue";
-import AddCat from "../views/AddCat.vue";
 import DelItem from "../views/DelItem.vue";
 // importing components
 import Navbar from "../components/Navbar.vue";
@@ -55,6 +56,10 @@ const router = createRouter({
                     path: "/admin-dashboard/del-cat",
                     name: "DelCat",
                     component: DelCat
+                }, {
+                    path: "/admin-dashboard/add-item",
+                    name: "AddItem",
+                    component: AddItem
                 }, {
                     path: "/admin-dashboard/edit-item",
                     name: "EditItem",

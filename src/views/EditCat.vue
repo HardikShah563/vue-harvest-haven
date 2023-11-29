@@ -30,7 +30,6 @@ export default {
                 );
                 const data = await response.json();
                 this.categories = data.categories;
-                console.log(this.categories);
             } catch (err) {
                 console.log(err.message);
             }
