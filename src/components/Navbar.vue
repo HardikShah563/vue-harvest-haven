@@ -72,9 +72,6 @@ export default {
             <RouterLink v-if="userInfo" class="nav-btn" to="/cart">
                 <div class="svg"><ShoppingCartIcon /></div>
                 <p class="nav-action-label">Cart</p>
-                <!-- {cart.cartItems.length > 0 && ( -->
-                <span class="cart-count" id="red"> 0 </span>
-                <!-- )} -->
             </RouterLink>
 
             <!-- <div> -->
